@@ -98,12 +98,12 @@ class LSTM(nn.Module):
         self.value_layer = nn.Sequential(
             nn.Linear(hidden_size * len(self.memory_systems), hidden_size),
             nn.ReLU(),
-            nn.Linear(hidden_size, 1)  # outputs a single state value
+            nn.Linear(hidden_size, 1) 
         )
         self.advantage_layer = nn.Sequential(
             nn.Linear(hidden_size * len(self.memory_systems), hidden_size),
             nn.ReLU(),
-            nn.Linear(hidden_size, n_actions)  # outputs the advantage for each action
+            nn.Linear(hidden_size, n_actions)
         )
 
         self.relu = nn.ReLU()
