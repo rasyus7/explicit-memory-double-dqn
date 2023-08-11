@@ -291,7 +291,7 @@ class LSTM(nn.Module):
         # dim=-1 is the feature dimension
         fc_out_all = torch.concat(to_concat, dim=-1)
 
-        value = self.value_stream(fc_out_all)
+        value = self.value_layer(fc_out_all)
         advantage = self.advantage_layer(fc_out_all)
         fc_out = value + (advantage - advantage.mean(dim=1, keepdim=True))
 
