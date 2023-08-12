@@ -90,11 +90,22 @@ class LSTM(nn.Module):
             # self.fc_o0 = nn.Linear(self.input_size_o, hidden_size)
             self.fc_o1 = nn.Linear(hidden_size, hidden_size)
 
-        self.fc_final0 = nn.Linear(
+        self.fc_final0 = nn.Linear( # ALREADY COMMON FEATUER LAYER
             hidden_size * len(self.memory_systems),
             hidden_size * len(self.memory_systems),
         )
-        self.fc_final1 = nn.Linear(hidden_size * len(self.memory_systems), n_actions)
+        
+        self.value_layer = nn.Sequential(
+            nn.Linear(hidden_size * len(self.memory_systems), hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, 1) 
+        )
+        self.advantage_layer = nn.Sequential(
+            nn.Linear(hidden_size * len(self.memory_systems), hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, n_actions)
+        )
+
         self.relu = nn.ReLU()
 
     def create_embeddings(self) -> None:
@@ -280,8 +291,8 @@ class LSTM(nn.Module):
         # dim=-1 is the feature dimension
         fc_out_all = torch.concat(to_concat, dim=-1)
 
-        # fc_out has the dimension of (batch_size, 2)
-        fc_out = self.fc_final1(self.relu(self.fc_final0(fc_out_all)))
-        #
+        value = self.value_layer(fc_out_all)
+        advantage = self.advantage_layer(fc_out_all)
+        fc_out = value + (advantage - advantage.mean(dim=1, keepdim=True))
 
         return fc_out
