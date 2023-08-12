@@ -282,5 +282,6 @@ class LSTM(nn.Module):
 
         # fc_out has the dimension of (batch_size, 2)
         fc_out = self.fc_final1(self.relu(self.fc_final0(fc_out_all)))
+        #
 
         return fc_out
