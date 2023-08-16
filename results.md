@@ -3,14 +3,17 @@ The first row is the semantic scratch and the second is semantic pretrained
 
 ## vanilla dqn
 heights: 89.32000122070312, stds: 4.021143669546528
+
 heights: 110.71999969482422, stds: 3.5181795198362273
 
 ## ddqn
 heights: 90.23999938964843, stds: 4.126790526405994
+
 heights: 108.2, stds: 4.630334761116596
 
 ## dueling dqn
 heights: 81.43999786376953, stds: 5.868424004191357
+
 heights: 102.71999816894531, stds: 8.92421501438912
 
 ## dueling ddqn
