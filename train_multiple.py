@@ -33,7 +33,7 @@ train_config = {
     "optimizer": "adam",
     "des_size": "l",
     "capacity": {"episodic": 16, "semantic": 16, "short": 1},
-    "question_prob": 0.5,
+    "question_prob": 1.0,
     "observation_params": "perfect",
     "nn_params": {
         "architecture": "lstm",
@@ -88,7 +88,6 @@ for capacity in [32]:
             }
             train_config["pretrain_semantic"] = pretrain_semantic
             train_config["seed"] = seed
-            train_config["sync_rate"] = 20
 
             config_file_name = (
                 f"./junks/{str(datetime.datetime.now()).replace(' ', '-')}.yaml"
